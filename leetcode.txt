@@ -1,0 +1,374 @@
+median of two sorted array
+
+import java.util.*;
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int c=nums1.length+nums2.length;
+        int []res=new int[c];
+        for(int i=0;i<nums1.length;i++){
+            res[i]=nums1[i];
+        }
+        for (int i = 0; i < nums2.length; i++) {
+            res[nums1.length + i] = nums2[i];
+        }
+        int temp;
+        for(int k=0;k<c;k++){
+            for(int l=k+1;l<c;l++){
+                if(res[k]>res[l]){
+                    temp=res[k];
+                    res[k]=res[l];
+                    res[l]=temp;
+                }
+
+            }
+        }
+        if (c % 2 == 0) {
+            return (res[c / 2] + res[c / 2 - 1]) / 2.0;  
+        } 
+        else {
+            return res[c / 2];
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        Solution ob1=new Solution();
+        int size1=sc.nextInt();
+        int size2=sc.nextInt();
+        int []nums1=new int[size1];
+        int []nums2=new int[size2];
+        for(int i=0;i<size1;i++){
+            nums1[i]=sc.nextInt();
+        }
+        for(int j=0;j<size2;j++){
+            nums2[j]=sc.nextInt();
+        }
+        System.out.println(ob1.findMedianSortedArrays(nums1,nums2));
+    }
+}
+
+Two sum
+
+import java.util.Scanner;
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int i,j;
+        int[] res=new int[2];
+        int len=nums.length;
+        for(i=0;i<=len;i++){
+            for(j=i+1;j<len;j++){
+                if((nums[i]+nums[j])==target){
+                    res[0]=i;
+                    res[1]=j;    
+                    }
+                    }
+        }
+        return res;      
+    }
+    public static void main(String []args){
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+        int[] nums = new int[size];
+        for (int i = 0; i < size; i++) {
+            nums[i] = sc.nextInt();
+            }
+        int target = sc.nextInt();
+        Solution ob1=new Solution();
+        System.out.println(ob1.twoSum(nums,target));
+
+    }
+}
+import java.util.Scanner;
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int i,j;
+        int[] res=new int[2];
+        int len=nums.length;
+        for(i=0;i<=len;i++){
+            for(j=i+1;j<len;j++){
+                if((nums[i]+nums[j])==target){
+                    res[0]=i;
+                    res[1]=j;    
+                    }
+                    }
+        }
+        return res;      
+    }
+    public static void main(String []args){
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+        int[] nums = new int[size];
+        for (int i = 0; i < size; i++) {
+            nums[i] = sc.nextInt();
+            }
+        int target = sc.nextInt();
+        Solution ob1=new Solution();
+        System.out.println(ob1.twoSum(nums,target));
+
+    }
+}
+
+
+class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        int len=nums.length;
+        for(int i=0;i<len;i++){
+            for(int j=i+1;j<len && j <= i + k; j++){
+                int nu=Math.abs(i-j);
+                if((nums[i]==nums[j])&& nu<=k){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+} 
+
+merged sorted array
+
+class Solution {
+    public int[] merge(int[] nums1, int m, int[] nums2, int n) {
+        int len=m+n;
+        int l=0;
+        int len1=nums1.length;
+        int []arr=new int[len];
+        for(int i=0;i<len1;i++){
+            if(nums1[i]!=0){
+                 arr[i]=nums1[i];
+            }
+        }
+        for(int j=m+1;j<len;j++){
+            if(nums2[l]!=0){
+                 arr[j]=nums2[l];
+                 l++;
+            }
+        }
+        Arrays.sort(arr);
+        return arr;
+      
+    }
+}
+
+remove Elements
+
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        int k = 0; 
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != val) {
+                nums[k] = nums[i]; 
+                k++;
+            }
+        }    
+        return k;
+    }
+}
+
+remove duplicated from sorted array
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        Arrays.sort(nums);
+        int len=nums.length;
+        int k=1;
+        for(int i=1;i<len;i++){
+            if(nums[i]!=nums[i-1]){
+                nums[k]=nums[i];
+                k++;
+            }
+        }
+        return k;
+    }
+}
+
+
+remove duplicates from sorted array II
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int k = 0;
+        int count = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int num : nums){
+            count = map.getOrDefault(num, 0) + 1;
+            map.put(num, count);
+
+            if(count > 2){
+                continue;
+            } else {
+                nums[k] = num;
+                k++;
+            }
+        }
+        return k;
+    }
+}
+
+majority elements
+
+class Solution {
+    public int majorityElement(int[] nums) {
+        int len = nums.length;
+        int max = nums[0];   
+        int count = 1;     
+        for (int i = 1; i < len; i++) {
+            if (nums[i] == max) {
+                count++;
+            } else {
+                count--;
+                if (count == 0) {
+                    max = nums[i];
+                    count = 1;
+                }
+            }
+        }
+        return max;
+    }
+}
+
+rotate array
+
+class Solution {
+    public void rotate(int[] nums, int k) {
+        int n=nums.length;
+        k = k % n; 
+        int [] res=new int[n];
+        for(int i=0;i<n;i++){
+            res[(i+k)%n]=nums[i];
+        }
+        for(int j=0;j<n;j++){
+            nums[j]=res[j];
+        }          
+    }
+}
+
+insert delete getRandom o(1)
+
+import java.util.*;
+
+class RandomizedSet {
+    private ArrayList<Integer> arr;
+
+    public RandomizedSet() {
+        arr = new ArrayList<>();
+    }
+
+    public boolean insert(int val) {
+        if (arr.contains(val)) {
+            return false;
+        }
+        arr.add(val);
+        return true;
+    }
+
+    public boolean remove(int val) {
+        if (!arr.contains(val)) {
+            return false;
+        }
+        arr.remove(Integer.valueOf(val));
+        return true;
+    }
+
+    public int getRandom() {
+        int index = (int)(Math.random() * arr.size());
+        return arr.get(index);
+    }
+}
+
+reverse words in string
+
+class Solution {
+    public String reverseWords(String s) {
+        String [] words=s.trim().split("\\s+");
+        StringBuilder reverse=new StringBuilder();
+        for(int i=words.length-1;i>=0;i--){
+            reverse.append(words[i]);
+            if(i!=0){
+                reverse.append(" ");
+            }
+        }
+        String res=reverse.toString();
+        return res;
+    }
+}
+
+valid palindrome
+
+class Solution {
+    public String reverseWords(String s) {
+        String [] words=s.trim().split("\\s+");
+        StringBuilder reverse=new StringBuilder();
+        for(int i=words.length-1;i>=0;i--){
+            reverse.append(words[i]);
+            if(i!=0){
+                reverse.append(" ");
+            }
+        }
+        String res=reverse.toString();
+        return res;
+    }
+}
+
+is subsequence
+
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        if (s.isEmpty()) {
+            return true;
+        }
+
+        int sPointer = 0;
+        int tPointer = 0;
+
+        while (sPointer < s.length() && tPointer < t.length()) {
+            if (s.charAt(sPointer) == t.charAt(tPointer)) {
+                sPointer++;
+            }
+            tPointer++;
+        }
+
+        if(sPointer == s.length()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}
+
+two sum II
+
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int []arr=new int[2];
+        int sum=0;
+        int len=numbers.length;
+        for(int i=0;i<len;i++){
+            for(int j=i+1;j<len;j++){
+                sum=numbers[i]+numbers[j];
+                if(sum==target){
+                    arr[0]=i+1;
+                    arr[1]=j+1;
+                    return arr;
+                }
+            }
+        }
+        return arr;
+    }
+}
+
+contains Duplicated
+
+class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        int len=nums.length;
+        for(int i=0;i<len;i++){
+            for(int j=i+1;j<len && j <= i + k; j++){
+                int nu=Math.abs(i-j);
+                if((nums[i]==nums[j])&& nu<=k){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
